@@ -6,3 +6,5 @@ Cette base de données pourra ensuite être utilisé pour fournir du contenu à 
 bots Discord ou autre addon in game (cf. wow)
 
 Site web: https://empirium-facts.now.sh/
+
+![alt](https://cdn.discordapp.com/attachments/483368646081773573/484856183862198273/facts.png)
