@@ -1,0 +1,18 @@
+<header class="navbar">
+  <div class="container">
+    <h1><a href="/">Empirium Facts</a></h1>
+
+    <nav class="navbar-nav">
+      <a href="/facts">Facts</a>
+      <a href="/add-facts">Ajoutes un Fact</a>
+      <a href="/api">API</a>
+
+      {{#if user}}
+      <a href="/logout">Logout</a>
+      <span class="user-connected">Connecté en tant que {{user.displayName}}</span>
+      {{else}}
+      <a href="/login">Login</a>
+      {{/if}}
+    </nav>
+  </div>
+</header>

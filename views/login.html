@@ -1,0 +1,24 @@
+{{> head}}
+
+{{> header page=login user=user}}
+
+<div class="main container login page">
+  <h2>Login</h2>
+
+  <p class="textcolor2">
+    <em>
+      Vous pouvez vous authentifier avec les différents reseaux sociaux listées
+      ci-dessous. Cliquez simplement sur le lien qui vous fournira un
+      formulaire adapté à la plateforme de votre choix.
+    </em>
+  </p>
+
+  <div class="social-auth social social-login">
+    <a href="/auth/google" class="google flaticon-googleplus"><span>Google</span></a>
+    <a href="/auth/twitter" class="twitter flaticon-twitter"><span>Twitter</span></a>
+    <a href="/auth/facebook" class="facebook flaticon-facebook"><span>Facebook</span></a>
+  </div>
+
+</div>
+
+{{> footer}}
