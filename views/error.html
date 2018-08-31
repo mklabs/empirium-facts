@@ -1,0 +1,15 @@
+{{> head}}
+
+{{> header page=error user=user}}
+
+<div class="main error homepage container">
+  <h2 style="margin-bottom: 40px;">Error :(</h2>
+
+  <div class="alert alert-danger" role="alert">
+    <pre style="text-align: left; font-weight: bolder;">
+      <code style="text-align: left;">{{ err }}</code>
+    </pre>
+  </div>
+</div>
+
+{{> footer}}

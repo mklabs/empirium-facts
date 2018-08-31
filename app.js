@@ -1,5 +1,7 @@
 const debug = require('debug')('empifacts:app');
 const express = require('express');
+require('express-async-errors');
+
 const bodyParser = require('body-parser');
 const sass = require('node-sass-middleware');
 const path = require('path');
@@ -171,6 +173,19 @@ app.get(
     failureRedirect: '/login'
   })
 );
+
+// Error managment
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  next(err);
+});
+
+app.use((err, req, res, next) => {
+  res.status(500);
+  res.render('error', {
+    err: config.NODE_ENV === 'production' ? err.message : err.stack
+  });
+});
 
 // serialize user into the session
 passport.serializeUser((user, done) => {

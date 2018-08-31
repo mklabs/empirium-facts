@@ -8,6 +8,7 @@ const {
 
 const index = async (req, res, next) => {
   debug('Render index page');
+
   const items = await getFacts();
   const facts = items.array().slice(0, 10);
 
@@ -29,8 +30,9 @@ const addFacts = async (req, res, next) => {
   const user = await req.user;
 
   const props = { ...req.body, author: user.displayName };
-  if (!props.name) throw new Error('Le nom est manquant');
-  if (!props.content) throw new Error('Le contenu du fact est manquant');
+  const errors = [];
+  if (!props.name) errors.push('Le nom est manquant');
+  if (!props.content) errors.push('Le contenu du fact est manquant');
   if (!props.author) throw new Error('Utilisateur non identifié');
 
   await addFact(props);
