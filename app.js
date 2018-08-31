@@ -29,7 +29,9 @@ const {
 
 const config =
   process.env.NODE_ENV === 'production'
-    ? process.env
+    ? process.env.port
+      ? process.env
+      : require('./now.dev.json').env
     : require('./now.dev.json').env;
 
 const upload = multer();
@@ -183,7 +185,7 @@ app.use((err, req, res, next) => {
 app.use((err, req, res, next) => {
   res.status(500);
   res.render('error', {
-    err: config.NODE_ENV === 'production' ? err.message : err.stack
+    err: process.env.NODE_ENV === 'production' ? err.message : err.stack
   });
 });
 
