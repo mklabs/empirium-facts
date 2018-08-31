@@ -28,17 +28,24 @@ const facts = async (req, res, next) => {
 const addFacts = async (req, res, next) => {
   debug('Adding fact with', req.body);
   const user = await req.user;
+  if (!user) throw new Error('Utilisateur non identifié');
 
   const props = { ...req.body, author: user.displayName };
   const errors = [];
   if (!props.name) errors.push('Le nom est manquant');
   if (!props.content) errors.push('Le contenu du fact est manquant');
-  if (!props.author) throw new Error('Utilisateur non identifié');
 
-  await addFact(props);
+  if (!errors.length) {
+    await addFact(props);
+  }
+
   res.render('addFacts', {
     user,
-    msg: `Fact correctement ajouté pour ${req.body.name}`
+    props,
+    errors,
+    msg: errors.length
+      ? 'Erreur, fact non ajouté veuillez vérifier les erreurs ci-desous.'
+      : `Fact "${props.content}" correctement ajouté pour ${props.name}.`
   });
 };
 
