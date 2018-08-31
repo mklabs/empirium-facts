@@ -21,7 +21,8 @@ const {
   login,
   logout,
   renderApi,
-  facts
+  facts,
+  cgu
 } = require('./routes/routes');
 
 const config =
@@ -138,6 +139,7 @@ app.get('/api', renderApi);
 app.get('/login', login);
 app.get('/logout', logout);
 app.get('/facts', facts);
+app.get('/cgu', cgu);
 
 app.get(
   '/auth/google',

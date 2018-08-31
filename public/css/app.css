@@ -6963,6 +6963,9 @@ header {
 .facts table th {
   border-top: none; }
 
+.cgu h3 {
+  font-size: 1.5rem; }
+
 footer {
   margin-top: 40px;
   border-top: 1px solid rgba(255, 255, 255, 0.3);
@@ -6970,3 +6973,6 @@ footer {
   color: rgba(255, 255, 255, 0.3); }
   footer p {
     text-align: center; }
+  footer .links a {
+    color: rgba(255, 255, 255, 0.3);
+    font-weight: 500; }

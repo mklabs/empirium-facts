@@ -71,6 +71,11 @@ const logout = async (req, res, next) => {
   res.redirect('/');
 };
 
+const cgu = async (req, res, next) => {
+  debug('Show CGU');
+  res.render('cgu', { user: await req.user });
+};
+
 module.exports = {
   addFacts,
   renderAddFacts,
@@ -79,5 +84,6 @@ module.exports = {
   index,
   login,
   logout,
-  facts
+  facts,
+  cgu
 };

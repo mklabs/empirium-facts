@@ -130,6 +130,12 @@ header {
   }
 }
 
+.cgu {
+  h3 {
+    font-size: 1.5rem;
+  }
+}
+
 footer {
   margin-top: 40px;
   border-top: 1px solid $textcolor2;
@@ -138,5 +144,12 @@ footer {
 
   p {
     text-align: center;
+  }
+
+  .links {
+    a {
+      color: $textcolor2;
+      font-weight: 500;
+    }
   }
 }
