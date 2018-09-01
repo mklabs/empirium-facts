@@ -211,7 +211,7 @@ const init = async () => {
   const { connection } = await initDB(config);
 
   // todo: remove force when in production; swap database between PROD and DEV
-  await connection.sync({ force: true });
+  await connection.sync();
 
   const port = process.env.port || 3000;
   app.listen(port, err => {
