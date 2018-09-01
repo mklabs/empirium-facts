@@ -9,7 +9,10 @@
 
       {{#if user}}
       <a href="/logout">Logout</a>
-      <span class="user-connected">Connecté en tant que {{user.displayName}}</span>
+      <span class="user-connected">
+        <img class="user-connected-photo" src="{{user.photo}}"/>
+        {{user.displayName}}
+      </span>
       {{else}}
       <a href="/login">Login</a>
       {{/if}}

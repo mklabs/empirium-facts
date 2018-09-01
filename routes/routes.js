@@ -10,18 +10,13 @@ const index = async (req, res, next) => {
   debug('Render index page');
 
   const items = await getFacts();
-  const facts = items.array().slice(0, 10);
-
-  debug('facts', facts);
+  const facts = items.slice(0, 10);
   res.render('index', { facts, user: await req.user });
 };
 
 const facts = async (req, res, next) => {
   debug('Render facts page..');
-  const items = await getFacts();
-  const facts = items.array();
-
-  debug('facts', facts);
+  const facts = await getFacts();
   res.render('facts', { facts, user: await req.user });
 };
 

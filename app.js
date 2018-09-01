@@ -6,14 +6,17 @@ const bodyParser = require('body-parser');
 const sass = require('node-sass-middleware');
 const path = require('path');
 const multer = require('multer');
+const upload = multer();
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const hbs = require('hbs');
 const passport = require('passport');
+const Sequelize = require('sequelize');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const TwitterStrategy = require('passport-twitter').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 
+const { initDB } = require('./models');
 const { findOrCreateUser, getUser } = require('./services/service');
 const {
   addFacts,
@@ -27,16 +30,9 @@ const {
   cgu
 } = require('./routes/routes');
 
-const config =
-  process.env.NODE_ENV === 'production'
-    ? process.env.port
-      ? process.env
-      : require('./now.dev.json').env
-    : require('./now.dev.json').env;
-
-const upload = multer();
-
 // Server configuration
+
+const config = process.env.NOW ? process.env : require('./now.dev.json').env;
 
 const app = express();
 app.use(cookieParser());
@@ -185,18 +181,20 @@ app.use((err, req, res, next) => {
 app.use((err, req, res, next) => {
   res.status(500);
   res.render('error', {
-    err: process.env.NODE_ENV === 'production' ? err.message : err.stack
+    err: process.env.NOW ? err.message : err.stack
   });
 });
 
 // serialize user into the session
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  debug('Serialize user', user.dataValues);
+  done(null, user.get('id'));
 });
 
 passport.deserializeUser(async (id, done) => {
+  debug('Deserialize user', id);
   try {
-    const user = getUser(id);
+    const user = await getUser(id);
     done(null, user);
   } catch (err) {
     debug('Got error in deserializeUser', err);
@@ -205,10 +203,29 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
-// Server listen
+// Init db and app
+const init = async () => {
+  debug('Init application. Environment: ', config.NODE_ENV);
+  debug('Is on now:', config.NOW);
 
-const port = process.env.port || 3000;
-app.listen(process.env.port || 3000, err => {
-  if (err) return console.error(err);
-  debug(`Listening on http://localhost:${port}`);
-});
+  const { connection } = await initDB(config);
+
+  // todo: remove force when in production; swap database between PROD and DEV
+  await connection.sync({ force: true });
+
+  const port = process.env.port || 3000;
+  app.listen(port, err => {
+    if (err) return console.error(err);
+    debug(`Listening on http://localhost:${port}`);
+  });
+};
+
+(async () => {
+  try {
+    await init();
+  } catch (err) {
+    console.error('Error initializing application:');
+    console.error(err);
+    process.exit(1);
+  }
+})()

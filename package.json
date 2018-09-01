@@ -4,7 +4,7 @@
   "description": "Random facts for empirium league Wow guild",
   "main": "index.js",
   "scripts": {
-    "start": "DEBUG='empifacts*' NODE_ENV=production node app.js",
+    "start": "DEBUG='empifacts*' node app.js",
     "dev": "DEBUG='empifacts*' nodemon app.js"
   },
   "author": "mklabs",
@@ -26,6 +26,8 @@
     "passport-facebook": "^2.1.1",
     "passport-google-oauth": "^1.0.0",
     "passport-twitter": "^1.0.4",
+    "sequelize": "^4.38.0",
+    "tedious": "^2.6.4",
     "uuid": "^3.3.2"
   },
   "devDependencies": {

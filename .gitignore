@@ -1,3 +1,7 @@
 now.json
 node_modules/
 now.dev.json
+test-db.js
+notes.txt
+scripts/secrets.sh
+data/

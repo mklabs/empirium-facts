@@ -6920,6 +6920,8 @@ header {
     font-weight: 100;
     font-size: 11px;
     right: 15px; }
+  header .user-connected-photo {
+    width: 24px; }
   header h1 {
     margin: 0;
     padding: 20px 0;
