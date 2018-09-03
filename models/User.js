@@ -63,8 +63,12 @@ module.exports = (sequelize, DataTypes) => {
   User.findOrCreateUser = async profile => {
     debug('User.findOrCreateUser: Create user "%s" (%s)', profile.displayName, profile.id);
     const defaults = { ...profile };
-    const photo = profile.photos[0];
-    defaults.photo = photo ? photo.value : '';
+    if (profile.photos) {
+      const photo = profile.photos[0];
+      defaults.photo = photo ? photo.value : '';
+    } else {
+      defaults.photo = '';
+    }
 
     const [ instance, created ] = await User.findOrCreate({
       where: {
