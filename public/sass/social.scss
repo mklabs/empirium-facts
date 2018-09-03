@@ -44,6 +44,10 @@
         background-color: darken($twitter-color, 10%);
       }
     }
+
+    &:hover {
+      color: #fefefe;
+    }
   }
   &:last-child {
     button {

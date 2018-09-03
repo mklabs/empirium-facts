@@ -6,9 +6,8 @@
 
 body {
   font-family: Arial;
-  background-color: $color2;
+  background-color: $color4;
   color: $textcolor1;
-
 
   a {
     color: $textcolor1;
@@ -44,7 +43,7 @@ body {
 // font-family: 'Lato', sans-serif;
 // font-family: 'Open Sans', sans-serif;
 header {
-  background-color: $color1;
+  background-color: $color4;
   border-bottom: 1px solid $textcolor2;
 
   .container {
@@ -71,13 +70,11 @@ header {
     font-weight: 500;
 
     display: inline-block;
-
   }
 
   a {
     text-decoration: none;
     color: $textcolor1;
-    opacity: 0.3;
   }
 
   a:hover {
@@ -103,7 +100,7 @@ header {
     font-family: 'Open Sans', sans-serif;
     font-weight: 500;
     font-size: 80px;
-    color: $textcolor3;
+    color: $textcolor1;
   }
 
   h3 {
@@ -112,7 +109,12 @@ header {
   }
 
   p {
-    color: $textcolor2;
+    color: $textcolor1;
+
+    &.description {
+      color: $textcolor1;
+      margin-top: 40px;
+    }
   }
 
   h4, table {
@@ -144,7 +146,7 @@ footer {
   margin-top: 40px;
   border-top: 1px solid $textcolor2;
   padding-top: 20px;
-  color: $textcolor2;
+  color: $textcolor1;
 
   p {
     text-align: center;
@@ -152,7 +154,7 @@ footer {
 
   .links {
     a {
-      color: $textcolor2;
+      color: $textcolor3;
       font-weight: 500;
     }
   }
