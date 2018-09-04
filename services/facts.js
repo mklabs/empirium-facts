@@ -17,9 +17,9 @@ const buildLua = async () => {
 
   const luaFacts = new Map();
   for (const item of items) {
-    const existing = luaFacts.get(item.name) || [];
-    existing.push(item);
-    luaFacts.set(item.name, existing);
+    let existing = luaFacts.get(item.name.toLowerCase()) || [];
+    existing = existing.concat(item);
+    luaFacts.set(item.name.toLowerCase(), existing);
   }
 
   let lua = `
@@ -102,7 +102,62 @@ function chucknorris(name, forWho)
 end;
   `;
 
-  console.log(lua);
+  lua += `
+function chuckChatMessage(message, channel, receiver)
+  if channel == 'WHISPER' then
+    return SendChatMessage(message, channel, nil, receiver);
+  end;
+
+  return SendChatMessage(message, channel);
+end;
+  `;
+
+  lua += `
+function chuckCommands(msg, channel, author)
+  -- Only respond to !chucknorris command
+  if msg == '!chucknorris' then
+    local fact = chucknorris();
+    return chuckChatMessage(fact, channel, author);
+  end
+
+  -- Or !chuck
+  if msg == '!chuck' then
+    local fact = chucknorris(author);
+    return chuckChatMessage(fact, channel, author);
+  end
+  `;
+
+  for (const [name, facts] of luaFacts) {
+    lua += `
+  if msg == '!${name}' then
+    local fact = chucknorris(author, '${name}');
+    return chuckChatMessage(fact, channel, author);
+  end\n`;
+  }
+
+  lua += `end;
+  `;
+
+  lua += `
+function chuckHelp(msg, channel, author)
+  if msg == '!help' then
+    chuckChatMessage('Empirium Facts Help:', channel, author);
+    chuckChatMessage(' !help - Show this help message', channel, author);
+    chuckChatMessage(' !chucknorris <name> - Random Chuck Norris fact avec nom optionnel', channel, author);
+    chuckChatMessage(' !chuck <name> - Alias de !chucknorris', channel, author);
+`;
+
+
+  for (const [name, facts] of luaFacts) {
+    lua += `    chuckChatMessage(' !${name} - ${name.slice(0, 1).toUpperCase() + name.slice(1)} random facts', channel, author);\n`;
+  }
+
+
+  lua += `    return;
+  end;
+end;
+  `;
+
   return lua;
 };
 

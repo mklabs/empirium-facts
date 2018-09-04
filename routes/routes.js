@@ -64,7 +64,6 @@ const renderAddFacts = async (req, res, next) => {
 const renderApi = async (req, res, next) => {
   debug('Render api page');
   const lua = await buildLua();
-  console.log(lua);
   res.render('api', { user: await req.user, lua });
 };
 
