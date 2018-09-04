@@ -3,7 +3,8 @@ const {
   getFacts,
   getFact,
   addFact,
-  deleteFactWithId
+  deleteFactWithId,
+  buildLua
 } = require('../services/service');
 
 const index = async (req, res, next) => {
@@ -62,7 +63,9 @@ const renderAddFacts = async (req, res, next) => {
 
 const renderApi = async (req, res, next) => {
   debug('Render api page');
-  res.render('api', { user: await req.user });
+  const lua = await buildLua();
+  console.log(lua);
+  res.render('api', { user: await req.user, lua });
 };
 
 const login = async (req, res, next) => {
